@@ -8,11 +8,19 @@ for i in range(n):
     a.append(int(data[2 + i].split()[0]))
     b.append(int(data[2 + i].split()[1]))
 
-r = [0]*(n+1)
-for i in range(0, n+1):
-    r[i] = t + sum(a[j] for j in range(0, i)) + sum(b[j] for j in range(i, n))
+#r = [0]*(n+1+n+1)
+#for i in range(0, n+1):
+#    r[i] = t + sum(a[j] for j in range(0, i)) + sum(b[j] for j in range(i, n))
 
 #r = [(t+sum(a[0:i])+sum(b[i:n])) for i in range(n+1)]
+r = 0
+p = "a0"
+for i in range(n+1):
+    if p[0] == "a":
+        if t<a[0]:
+            r += t
+            p = b + str(i)
+        else:
 
 print("Все пути:",r,"\nМинимальный путь:", min(r))
 

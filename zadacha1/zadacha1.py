@@ -13,15 +13,36 @@ for i in range(n):
 #    r[i] = t + sum(a[j] for j in range(0, i)) + sum(b[j] for j in range(i, n))
 
 #r = [(t+sum(a[0:i])+sum(b[i:n])) for i in range(n+1)]
+
+#print("Все пути:",r,"\nМинимальный путь:", min(r))
+
 r = 0
 p = "a0"
-for i in range(n+1):
+for i in range(n):
     if p[0] == "a":
-        if t<a[0]:
-            r += t
-            p = b + str(i)
+        if i != n - 1:
+            if a[i] > b[i] + t:
+                r += t + b[i]
+                p = "b" + str(i + 1)
+            elif a[i] < b[i] + t:
+                r += a[i]
+                p =  "a" + str(i + 1)
         else:
+             if a[i] + t > b[i] + t:
+                r += t + b[i]
+                p = "b" + str(i + 1)
+             elif a[i] + t < b[i] + t:
+                r += a[i] + t
+                p =  "a" + str(i + 1)
+    elif p[0] == "b":
+        if b[i] > a[i] + t:
+            r += t + a[i]
+            p = "a" + str(i + 1)
+        elif b[i] < a[i] + t:
+            r += b[i]
+            p = "b" + str(i + 1)
+    #print(p, r)
 
-print("Все пути:",r,"\nМинимальный путь:", min(r))
+print("Минимальный путь:", r)
 
 #print("Минимальный путь:",min(list(int(open("data.txt","r").readlines()[1].strip())+sum(list(int(open("data.txt","r").readlines()[2+i].split()[0]) for i in range(int(open("data.txt","r").readlines()[0].strip())))[0:i])+sum(list(int(open("data.txt","r").readlines()[2+i].split()[1]) for i in range(int(open("data.txt","r").readlines()[0].strip())))[i:int(open("data.txt","r").readlines()[0].strip())]) for i in range(int(open("data.txt","r").readlines()[0].strip())+1))))
